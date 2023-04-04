@@ -1,86 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <title>A Bíblia Online</title>
-    <!-- Incluindo o Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+U6QLrE9MVBThI9pzU6j7gDQIXYgD5p"
-      crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    
-  </head>
-  <body>
-    <div class="container mt-5">
-      <h1 class="text-center mb-5">A Bíblia Online</h1>
-      <form id="search-form">
-        <div class="form-row mb-3">
-          <div class="col-4">
-            <label for="book-select">Livro:</label>
-            <select id="book-select" class="form-control">
-              <option value="">Selecione um livro</option>
-              <option value="Gn">Gênesis</option>
-              <option value="Ex">Êxodo</option>
-              <option value="Lv">Levítico</option>
-              <!-- Insira mais opções de livros aqui -->
-            </select>
-          </div>
-          <div class="col-4">
-            <label for="chapter-select">Capítulo:</label>
-            <select id="chapter-select" class="form-control">
-              <option value="">Selecione um capítulo</option>
-              <!-- As opções de capítulos serão preenchidas dinamicamente pelo JavaScript -->
-            </select>
-          </div>
-          <div class="col-4">
-            <label for="verse-select">Versículo:</label>
-            <select id="verse-select" class="form-control">
-              <option value="">Selecione um versículo</option>
-              <!-- As opções de versículos serão preenchidas dinamicamente pelo JavaScript -->
-            </select>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Buscar</button>
-      </form>
-      <hr>
-      <div id="bible-container"></div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Bíblia Online</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>A Bíblia Online</h1>
+  </header>
+
+  <main>
+    <form id="bible-form">
+      <label for="version-select">Versão:</label>
+      <select id="version-select">
+        <option value="acf">Almeida Corrigida Fiel</option>
+        <option value="nvi">Nova Versão Internacional</option>
+        <option value="arc">Almeida Revista e Corrigida</option>
+      </select>
+
+      <label for="book-select">Livro:</label>
+      <select id="book-select">
+        <option value="gn">Gênesis</option>
+        <option value="ex">Êxodo</option>
+        <option value="lv">Levítico</option>
+        <option value="nm">Números</option>
+        <option value="dt">Deuteronômio</option>
+        <option value="js">Josué</option>
+        <option value="jz">Juízes</option>
+        <option value="rt">Rute</option>
+        <option value="1sm">1 Samuel</option>
+        <option value="2sm">2 Samuel</option>
+        <option value="1rs">1 Reis</option>
+        <option value="2rs">2 Reis</option>
+        <option value="1cr">1 Crônicas</option>
+        <option value="2cr">2 Crônicas</option>
+        <option value="ed">Esdras</option>
+        <option value="ne">Neemias</option>
+        <option value="et">Ester</option>
+        <option value="job">Jó</option>
+        <option value="sl">Salmos</option>
+        <option value="pv">Provérbios</option>
+        <option value="ec">Eclesiastes</option>
+        <option value="ct">Cantares de Salomão</option>
+        <option value="is">Isaías</option>
+        <option value="jr">Jeremias</option>
+        <option value="lm">Lamentações de Jeremias</option>
+        <option value="ez">Ezequiel</option>
+        <option value="dn">Daniel</option>
+        <option value="os">Oseias</option>
+        <option value="j1">Joel</option>
+        <option value="j2">Amós</option>
+        <option value="j3">Obadias</option>
+        <option value="j4">Jonas</option>
+        <option value="mc">Miquéias</option>
+        <option value="na">Naum</option>
+        <option value="hb">Habacuque</option>
+        <option value="sf">Sofonias</option>
+        <option value="ag">Ageu</option>
+        <option value="zc">Zacarias</option>
+        <option value="ml">Malaquias</option>
+      </select>
+      <label for="chapter-select">Capítulo:</label>
+      <select id="chapter-select"></select>
+      <button id="load-button">Carregar</button>
     </div>
 
-    <!-- Incluindo o Axios -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <div id="bible-content">
+      <p>Selecione uma versão, livro e capítulo para carregar a Bíblia.</p>
+    </div>
 
-    <!-- Seu código JavaScript aqui -->
-    <script>
-      // Seu código JavaScript vai aqui
-      const apiKey = "SUA CHAVE DE API AQUI";
-const baseUrl = "https://api.biblia.com/v1/bible";
+  </div>
 
-// Selecionando elementos da página
-const searchForm = document.querySelector("#search-form");
-const bookSelect = document.querySelector("#book-select");
-const chapterSelect = document.querySelector("#chapter-select");
-const verseSelect = document.querySelector("#verse-select");
-const bibleContainer = document.querySelector("#bible-container");
+  <script src="script.js"></script>
+</body>
 
-// Criando evento para enviar solicitação ao servidor ao enviar o formulário
-searchForm.addEventListener("submit", async (event) => {
-  event.preventDefault(); // evita o recarregamento da página ao enviar o formulário
-
-  const book = bookSelect.value;
-  const chapter = chapterSelect.value;
-  const verse = verseSelect.value;
-  const version = "nvi"; // substitua pela versão desejada
-
-  const url = `${baseUrl}/content/${version}.html?passage=${book}${chapter}:${verse}&key=${apiKey}`;
-
-  try {
-    const response = await axios.get(url);
-    bibleContainer.innerHTML = response.data;
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-    </script>
-  </body>
-</html>
