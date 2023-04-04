@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bíblia Online</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Bíblia Online</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Pesquisa de Versículos</h2>
+        <form>
+          <label for="search">Digite a palavra-chave ou referência:</label>
+          <input type="search" id="search" name="search" />
+          <button type="submit">Pesquisar</button>
+        </form>
+        <div id="search-results"></div>
+      </section>
+      <section>
+        <h2>Navegação por Capítulos</h2>
+        <div>
+          <label for="books">Escolha um livro:</label>
+          <select name="books" id="books">
+            <option value="" selected disabled hidden>Selecione um livro</option>
+            <option value="gen">Gênesis</option>
+            <option value="exo">Êxodo</option>
+            <option value="lev">Levítico</option>
+            <option value="num">Números</option>
+            <option value="deu">Deuteronômio</option>
+            <!-- Adicione mais opções aqui -->
+          </select>
+        </div>
+        <div id="chapters"></div>
+      </section>
+      <section>
+        <h2>Versões da Bíblia em Português</h2>
+        <div>
+          <label for="versions">Escolha uma versão:</label>
+          <select name="versions" id="versions">
+            <option value="" selected disabled hidden>Selecione uma versão</option>
+            <option value="ara">Almeida Revista e Atualizada (ARA)</option>
+            <option value="nvi">Nova Versão Internacional (NVI)</option>
+            <option value="ntlh">Nova Tradução na Linguagem de Hoje (NTLH)</option>
+          </select>
+        </div>
+        <div id="bible"></div>
+      </section>
+    </main>
+    <footer>
+      <p>Desenvolvido por [seu nome aqui]</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
