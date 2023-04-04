@@ -1,41 +1,58 @@
-/* Estilos gerais */
+/* Estilos globais */
 body {
   font-family: Arial, sans-serif;
 }
 
-/* Estilos para o cabeçalho */
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
 h1 {
-  font-size: 3rem;
-  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* Estilos para o formulário de busca */
-.form-row label {
-  font-weight: bold;
+select {
+  margin-right: 10px;
 }
 
-/* Estilos para o contêiner da Bíblia */
-#bible-container {
-  font-size: 1.5rem;
-  line-height: 2;
-  margin-top: 2rem;
+#load-button {
+  margin-left: 10px;
 }
 
-/* Estilos para a versão selecionada */
-.version-select {
-  font-size: 1.2rem;
-  font-weight: bold;
+/* Estilos da Bíblia */
+#bible-selects {
+  margin-bottom: 20px;
 }
 
-/* Estilos para os versículos */
-.verse {
-  font-size: 1.5rem;
-  font-weight: bold;
+#bible-content {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
 }
 
-/* Estilos para os números de versículo */
-.verse-number {
-  font-size: 1.2rem;
-  font-weight: normal;
-  margin-right: 1rem;
+#bible-content p {
+  text-align: center;
+  font-style: italic;
+}
+
+/* Estilos mobile */
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #load-button {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+  }
 }
