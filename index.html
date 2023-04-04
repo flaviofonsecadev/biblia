@@ -1,58 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
     <title>A Bíblia Online</title>
-    <link rel="stylesheet" href="style.css" />
+    <!-- Incluindo o Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+U6QLrE9MVBThI9pzU6j7gDQIXYgD5p"
+      crossorigin="anonymous">
   </head>
   <body>
-    <header>
-      <h1>A Bíblia Online</h1>
-    </header>
-    <main>
-      <section>
-        <h2>Pesquisa de Versículos</h2>
-        <form>
-          <label for="search">Digite a palavra-chave ou referência:</label>
-          <input type="search" id="search" name="search" />
-          <button type="submit">Pesquisar</button>
-        </form>
-        <div id="search-results"></div>
-      </section>
-      <section>
-        <h2>Navegação por Capítulos</h2>
-        <div>
-          <label for="books">Escolha um livro:</label>
-          <select name="books" id="books">
-            <option value="" selected disabled hidden>Selecione um livro</option>
-            <option value="gen">Gênesis</option>
-            <option value="exo">Êxodo</option>
-            <option value="lev">Levítico</option>
-            <option value="num">Números</option>
-            <option value="deu">Deuteronômio</option>
-            <!-- Adicione mais opções aqui -->
-          </select>
+    <div class="container mt-5">
+      <h1 class="text-center mb-5">A Bíblia Online</h1>
+      <form id="search-form">
+        <div class="form-row mb-3">
+          <div class="col-4">
+            <label for="book-select">Livro:</label>
+            <select id="book-select" class="form-control">
+              <option value="">Selecione um livro</option>
+              <option value="Gn">Gênesis</option>
+              <option value="Ex">Êxodo</option>
+              <option value="Lv">Levítico</option>
+              <!-- Insira mais opções de livros aqui -->
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="chapter-select">Capítulo:</label>
+            <select id="chapter-select" class="form-control">
+              <option value="">Selecione um capítulo</option>
+              <!-- As opções de capítulos serão preenchidas dinamicamente pelo JavaScript -->
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="verse-select">Versículo:</label>
+            <select id="verse-select" class="form-control">
+              <option value="">Selecione um versículo</option>
+              <!-- As opções de versículos serão preenchidas dinamicamente pelo JavaScript -->
+            </select>
+          </div>
         </div>
-        <div id="chapters"></div>
-      </section>
-      <section>
-        <h2>Versões da Bíblia em Português</h2>
-        <div>
-          <label for="versions">Escolha uma versão:</label>
-          <select name="versions" id="versions">
-            <option value="" selected disabled hidden>Selecione uma versão</option>
-            <option value="ara">Almeida Revista e Atualizada (ARA)</option>
-            <option value="nvi">Nova Versão Internacional (NVI)</option>
-            <option value="ntlh">Nova Tradução na Linguagem de Hoje (NTLH)</option>
-          </select>
-        </div>
-        <div id="bible"></div>
-      </section>
-    </main>
-    <footer>
-      <p>Desenvolvido por Flavio Fonseca</p>
-    </footer>
-    <script src="script.js"></script>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+      <hr>
+      <div id="bible-container"></div>
+    </div>
+
+    <!-- Incluindo o Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- Seu código JavaScript aqui -->
+    <script>
+      // Seu código JavaScript vai aqui
+    </script>
   </body>
 </html>
