@@ -1,260 +1,41 @@
-/* Reset CSS para remover estilos padrão do navegador */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Estilos básicos da página */
+/* Estilos gerais */
 body {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-  background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
 }
 
-header {
-  background-color: #fff;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
+/* Estilos para o cabeçalho */
 h1 {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
 }
 
-main {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1rem;
+/* Estilos para o formulário de busca */
+.form-row label {
+  font-weight: bold;
 }
 
-section {
-  margin: 2rem 0;
+/* Estilos para o contêiner da Bíblia */
+#bible-container {
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-top: 2rem;
 }
 
-h2 {
+/* Estilos para a versão selecionada */
+.version-select {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Estilos para os versículos */
+.verse {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
 }
 
-form {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-label {
-  font-weight: bold;
+/* Estilos para os números de versículo */
+.verse-number {
+  font-size: 1.2rem;
+  font-weight: normal;
   margin-right: 1rem;
-}
-
-input[type="search"] {
-  width: 100%;
-  border: none;
-  border-bottom: 2px solid #333;
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
-button[type="submit"] {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #555;
-}
-
-select {
-  font-size: 1rem;
-  padding: 0.5rem;
-  margin-right: 1rem;
-}
-
-#search-results {
-  margin-top: 2rem;
-}
-
-#chapters,
-#bible {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.chapter {
-  width: 30%;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.chapter:hover {
-  transform: scale(1.02);
-}
-
-.chapter.active {
-  background-color: #333;
-  color: #fff;
-}
-
-#bible {
-  margin-top: 2rem;
-}
-
-.book {
-  width: 100%;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.book:hover {
-  transform: scale(1.02);
-}
-
-.book.active {
-  background-color: #333;
-  color: #fff;
-}
-
-/* Estilos para telas pequenas */
-@media (max-width: 767px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .navbar-brand {
-    margin-bottom: 10px;
-  }
-  
-  .navbar-collapse {
-    margin-top: 10px;
-  }
-  
-  .navbar-nav {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-link {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    text-align: center;
-  }
-  
-  .search-form {
-    margin-top: 20px;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .search-button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  .book-list {
-    margin-top: 20px;
-  }
-  
-  .book-item {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #f7f7f7;
-    cursor: pointer;
-  }
-  
-  .book-item:hover {
-    background-color: #e3e3e3;
-  }
-  
-  .chapter-list {
-    margin-top: 20px;
-  }
-  
-  .chapter-item {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #f7f7f7;
-    cursor: pointer;
-  }
-  
-  .chapter-item:hover {
-    background-color: #e3e3e3;
-  }
-  
-  .version-list {
-    margin-top: 20px;
-  }
-  
-  .version-item {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #f7f7f7;
-    cursor: pointer;
-  }
-  
-  .version-item:hover {
-    background-color: #e3e3e3;
-  }
-  
-  .verse-list {
-    margin-top: 20px;
-  }
-  
-  .verse-item {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #f7f7f7;
-    cursor: pointer;
-  }
-  
-  .verse-item:hover {
-    background-color: #e3e3e3;
-  }
-  
-  .verse-text {
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f7f7f7;
-  }
 }
