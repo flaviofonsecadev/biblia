@@ -1,82 +1,88 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Bíblia Online</title>
-  <link rel="stylesheet" href="style.css">
+    <title>Bíblia Sagrada</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-  <header>
-    <h1>A Bíblia Online</h1>
-  </header>
-
-  <main>
+    <h1>Bíblia Sagrada</h1>
     <form id="bible-form">
-      <label for="version-select">Versão:</label>
-      <select id="version-select">
-        <option value="acf">Almeida Corrigida Fiel</option>
-        <option value="nvi">Nova Versão Internacional</option>
-        <option value="arc">Almeida Revista e Corrigida</option>
-      </select>
+        <label for="version">Versão:</label>
+        <select id="version" name="version"></select>
+        <br><br>
+        <label for="book">Livro:</label>
+        <select id="book" name="book"></select>
+        <br><br>
+        <label for="chapter">Capítulo:</label>
+        <select id="chapter" name="chapter"></select>
+        <br><br>
+        <input type="submit" value="Exibir">
+    </form>
+    <div id="scripture"></div>
+    <script>
+        $(document).ready(function() {
+            // preencher lista de versões
+            var apiKey = 'sua chave de API aqui';
+            var versionsUrl = 'https://api.scripture.api.bible/v1/bibles';
+            fetch(versionsUrl, {headers: {'api-key': apiKey}})
+                .then(response => response.json())
+                .then(data => {
+                    var versions = data.data;
+                    versions.forEach(version => {
+                        $('#version').append('<option value="'+version.id+'">'+version.name+'</option>');
+                    });
+                });
 
-      <label for="book-select">Livro:</label>
-      <select id="book-select">
-        <option value="gn">Gênesis</option>
-        <option value="ex">Êxodo</option>
-        <option value="lv">Levítico</option>
-        <option value="nm">Números</option>
-        <option value="dt">Deuteronômio</option>
-        <option value="js">Josué</option>
-        <option value="jz">Juízes</option>
-        <option value="rt">Rute</option>
-        <option value="1sm">1 Samuel</option>
-        <option value="2sm">2 Samuel</option>
-        <option value="1rs">1 Reis</option>
-        <option value="2rs">2 Reis</option>
-        <option value="1cr">1 Crônicas</option>
-        <option value="2cr">2 Crônicas</option>
-        <option value="ed">Esdras</option>
-        <option value="ne">Neemias</option>
-        <option value="et">Ester</option>
-        <option value="job">Jó</option>
-        <option value="sl">Salmos</option>
-        <option value="pv">Provérbios</option>
-        <option value="ec">Eclesiastes</option>
-        <option value="ct">Cantares de Salomão</option>
-        <option value="is">Isaías</option>
-        <option value="jr">Jeremias</option>
-        <option value="lm">Lamentações de Jeremias</option>
-        <option value="ez">Ezequiel</option>
-        <option value="dn">Daniel</option>
-        <option value="os">Oseias</option>
-        <option value="j1">Joel</option>
-        <option value="j2">Amós</option>
-        <option value="j3">Obadias</option>
-        <option value="j4">Jonas</option>
-        <option value="mc">Miquéias</option>
-        <option value="na">Naum</option>
-        <option value="hb">Habacuque</option>
-        <option value="sf">Sofonias</option>
-        <option value="ag">Ageu</option>
-        <option value="zc">Zacarias</option>
-        <option value="ml">Malaquias</option>
-      </select>
-      <label for="chapter-select">Capítulo:</label>
-      <select id="chapter-select">
-      
-      </select>
-      <button id="load-button">Carregar</button>
-    </div>
+            // preencher lista de livros e capítulos
+            $('#version').on('change', function() {
+                var versionId = $(this).val();
+                var booksUrl = 'https://api.scripture.api.bible/v1/bibles/'+versionId+'/books';
+                $('#book').empty();
+                $('#chapter').empty();
+                fetch(booksUrl, {headers: {'api-key': apiKey}})
+                    .then(response => response.json())
+                    .then(data => {
+                        var books = data.data;
+                        books.forEach(book => {
+                            $('#book').append('<option value="'+book.id+'">'+book.name+'</option>');
+                        });
+                    });
+            });
 
-    <div id="bible-content">
-      <p>Selecione uma versão, livro e capítulo para carregar a Bíblia.</p>
-    </div>
-
-  </div>
-
-  <script src="script.js"></script>
+            $('#book').on('change', function() {
+                var versionId = $('#version').val();
+                var bookId = $(this).val();
+                var chaptersUrl = 'https://api.scripture.api.bible/v1/bibles/'+versionId+'/books/'+bookId+'/chapters';
+                $('#chapter').empty();
+                fetch(chaptersUrl, {headers: {'api-key': apiKey}})
+                    .then(response => response.json())
+                    .then(data => {
+    var chapters = data.data;
+    chapters.forEach(chapter => {
+    $('#chapter').append('<option value="'+chapter.id+'">'+chapter.reference+'</option>');
+    });
+  });
+});
+                  // exibir texto bíblico
+        $('#bible-form').on('submit', function(event) {
+            event.preventDefault();
+            var versionId = $('#version').val();
+            var bookId = $('#book').val();
+            var chapterId = $('#chapter').val();
+            var scriptureUrl = 'https://api.scripture.api.bible/v1/bibles/'+versionId+'/chapters/'+chapterId+'?include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false&use-org-id=false';
+            fetch(scriptureUrl, {headers: {'api-key': apiKey}})
+                .then(response => response.json())
+                .then(data => {
+                    var verses = data.data.content.split(/\d+ /).slice(1);
+                    var html = '<h2>'+data.data.reference+'</h2><ul>';
+                    verses.forEach(verse => {
+                        html += '<li>'+verse.trim()+'</li>';
+                    });
+                    html += '</ul>';
+                    $('#scripture').html(html);
+                });
+        });
+    });
+</script>
 </body>
-
+</html>
