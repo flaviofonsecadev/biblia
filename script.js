@@ -215,6 +215,7 @@ if (notificationEnabled !== null) {
   notificationCheckbox.checked = notificationEnabled === 'true';
 }
 
+
     
 // Verifica se o usuário permitiu notificações e configura as notificações
 if (notificationEnabled === 'true') {
@@ -231,4 +232,7 @@ if (notificationEnabled === 'true') {
       }
     });
   }
+}
+    
+      }
 }
