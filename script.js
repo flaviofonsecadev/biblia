@@ -120,3 +120,115 @@ bookSelect.value = savedBook;
 chapterSelect.value = savedChapter;
 renderBible(savedVersion, savedBook, savedChapter);
 }
+
+// Array com versículos da Bíblia
+const bibleVerses = [
+  "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna. - João 3:16",
+  "Porque pela graça sois salvos, por meio da fé; e isto não vem de vós; é dom de Deus. - Efésios 2:8",
+  "E esta é a confiança que temos nele: que, se pedirmos alguma coisa, segundo a sua vontade, ele nos ouve. - 1 João 5:14",
+  "Em verdade, em verdade vos digo que aquele que crê em mim tem a vida eterna. - João 6:47",
+  "Disse-lhe Jesus: Eu sou o caminho, e a verdade, e a vida. Ninguém vem ao Pai senão por mim. - João 14:6",
+  "E conhecereis a verdade, e a verdade vos libertará. - João 8:32",
+  "Não te deixes vencer do mal, mas vence o mal com o bem. - Romanos 12:21",
+  "Sede, portanto, misericordiosos, como também vosso Pai é misericordioso. - Lucas 6:36"
+];
+
+// Função para escolher um versículo aleatório
+function randomVerse() {
+  const index = Math.floor(Math.random() * bibleVerses.length);
+  return bibleVerses[index];
+}
+
+// Verifica se o navegador suporta notificações
+if ("Notification" in window) {
+  // Verifica se o usuário já concedeu permissão para receber notificações
+  if (Notification.permission === "granted") {
+    // Se o usuário já concedeu permissão, habilita a caixa de seleção
+    const checkbox = document.querySelector("#notifications-checkbox");
+    checkbox.disabled = false;
+
+    // Verifica se a caixa de seleção foi marcada anteriormente
+    const isChecked = localStorage.getItem("notifications") === "true";
+    checkbox.checked = isChecked;
+
+    // Função para atualizar a escolha do usuário no localStorage
+    function updateNotificationsSetting() {
+      localStorage.setItem("notifications", checkbox.checked);
+    }
+
+    // Adiciona o evento de mudança na caixa de seleção
+    checkbox.addEventListener("change", () => {
+      updateNotificationsSetting();
+    });
+
+    // Função para mostrar uma notificação com um versículo aleatório
+    function showNotification() {
+      const verse = randomVerse();
+      const notification = new Notification("Versículo do dia", {
+        body: verse
+      });
+    }
+
+    // Chama a função para mostrar a primeira notificação
+    showNotification();
+
+
+    // Define um intervalo para mostrar notificações a cada duas horas
+    setInterval(() => {
+      // Verifica se o usuário marcou a caixa de seleção
+      if (checkbox.checked) {
+        showNotification();
+      }
+    }, 2 * 60 * 60 * 1000); // 2 horas em milissegundos
+
+    // Função para mostrar uma notificação com um versículo aleatório
+    function showNotification() {
+      // Seleciona aleatoriamente um livro, capítulo e versículo
+      const book = books[Math.floor(Math.random() * books.length)];
+      const chapter = Math.floor(Math.random() * chapters[book].length) + 1;
+      const verse = Math.floor(Math.random() * verses[book][chapter].length) + 1;
+
+      // Cria a mensagem da notificação
+      const message = `${book} ${chapter}:${verse} - ${verses[book][chapter][verse]}`;
+
+      // Cria a notificação
+      const notification = new Notification('Bíblia Online', {
+        body: message
+      });
+
+      // Fecha a notificação depois de 5 segundos
+      setTimeout(notification.close.bind(notification), 5000);
+    }
+    
+    
+    // Seleciona a caixa de seleção para notificações
+const notificationCheckbox = document.getElementById('notification-checkbox');
+
+// Salva a escolha do usuário no LocalStorage
+notificationCheckbox.addEventListener('change', function() {
+  localStorage.setItem('notificationEnabled', this.checked);
+});
+
+// Verifica se o usuário marcou a caixa de seleção
+const notificationEnabled = localStorage.getItem('notificationEnabled');
+if (notificationEnabled !== null) {
+  notificationCheckbox.checked = notificationEnabled === 'true';
+}
+
+    
+// Verifica se o usuário permitiu notificações e configura as notificações
+if (notificationEnabled === 'true') {
+  if (!('Notification' in window)) {
+    console.log('Este navegador não suporta notificações.');
+  } else if (Notification.permission === 'granted') {
+    // Cria uma notificação com um versículo aleatório a cada duas horas
+    setInterval(showRandomVerseNotification, 2 * 60 * 60 * 1000);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(function(permission) {
+      if (permission === 'granted') {
+        // Cria uma notificação com um versículo aleatório a cada duas horas
+        setInterval(showRandomVerseNotification, 2 * 60 * 60 * 1000);
+      }
+    });
+  }
+}
